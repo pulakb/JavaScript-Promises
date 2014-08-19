@@ -1,0 +1,4 @@
+http://rss.cnn.com/rss/cnn_topstories.rss
+http://feeds.nytimes.com/nyt/rss/HomePage
+http://www.washingtonpost.com/rss/
+http://www.npr.org/rss/rss.php?id=1001
