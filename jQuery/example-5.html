@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 5 - Work with an array of jQuery Deferreds</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+		function createDeferredStuff() {
+		    var deferreds = [];
+
+		    for (i = 1; i <= 10; i++) {   
+		        deferreds.push(
+			        $.get('/hello.html').success(function(data) {
+			            $("div").append(data);
+			        })
+		        );
+		    }
+		    
+		    return deferreds;
+		}
+
+		$(function() {
+		    $("a").click(function() {
+		        var deferreds = createDeferredStuff();
+
+		        $.when.apply(null, deferreds).done(function() {
+		            $("div").append("<p>All done!</p>");
+		        });
+		    });
+		});
+
+		/*
+			In the case where multiple Deferred objects are passed to jQuery.when, the method returns the Promise from a new "master" Deferred object that tracks the aggregate state of all the Deferreds it has been passed. The method will resolve its master Deferred as soon as all the Deferreds resolve, or reject the master Deferred as soon as one of the Deferreds is rejected. If the master Deferred is resolved, it is passed the resolved values of all the Deferreds that were passed to jQuery.when. For example, when the Deferreds are jQuery.ajax() requests, the arguments will be the jqXHR objects for the requests, in the order they were given in the argument list.
+
+			In the multiple-Deferreds case where one of the Deferreds is rejected, jQuery.when immediately fires the failCallbacks for its master Deferred. Note that some of the Deferreds may still be unresolved at that point. If you need to perform additional processing for this case, such as canceling any unfinished ajax requests, you can keep references to the underlying jqXHR objects in a closure and inspect/cancel them in the failCallback.
+		*/
+	</script>
+</head>
+<body>
+	<a href="#">Hit me!</a>
+	<div></div>
+</body>
+</html>

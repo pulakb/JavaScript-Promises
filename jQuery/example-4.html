@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 4 - with Arguments</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+		function one(arg) {
+		    
+		    var deferred = $.Deferred(); // Don't worry yet what this is until after you understand the flow
+		    
+		    console.log("Starting one's ajax with arg: " + arg);
+		    $.ajax( {
+		        url: '/',
+		        success: function() {
+		            
+		            // Here's where you want to call the next function in the
+			    // list if there is one. To do it, call deferred.resolve()
+		            console.log('Finished with one. Ready to call next.');
+		            deferred.resolve("This is one's result");
+		            
+		        }
+		        
+		    });
+		    
+		    // The deferred object has a "promise" member, which has a "then" function
+		    return deferred.promise();
+		}
+		 
+		function two(arg) {
+		    var deferred = $.Deferred();
+		    console.log("Starting two's ajax with arg: " + arg);
+		    $.ajax( {
+		        url: '/',
+		        success: function() {
+		            
+		            // Again, this is where you want to call the next function
+			    // in the list if there is one.
+		            console.log('Finished with two. Ready to call next.');
+		            deferred.resolve("This is two's result");
+		            
+		        }
+		        
+		    });
+		    // The deferred object has a "promise" member, which has a "then" function
+		    return deferred.promise();
+		}
+		 
+		function three(arg) {
+		    var deferred = $.Deferred();
+		    console.log("Starting three's ajax with arg: " + arg);
+		    $.ajax( {
+		        url: '/',
+		        success: function() {
+		            
+		            // Again, this is where you want to call the next function
+			    // in the list if there is one.
+		            console.log('Finished with three. Ready to call next if there is one.');
+		            deferred.resolve("This is three's result");
+		            
+		        }
+		        
+		    });
+		    // The deferred object has a "promise" member, which has a "then" function
+		    return deferred.promise();
+		}
+		 
+		function four(arg) {
+		    console.log("Starting four with arg: " + arg);
+		    console.log("Finished synchronous four");
+		}
+		 
+		// Test it out. Call the first. Pass the functions (without calling them, so no parentheses) 
+		// into the "then" calls.
+		 
+		one("arg given to one")
+		    .then(two)
+		    .then(three)
+		    .then(four);
+		 
+		/* =====
+		Think about where the "then" function comes from. Each function creates a new defer instance 
+		and returns that object's promise member. That promise object has a "then" function. On return
+		from the first function, you get back a defer function, and call the "then" function, passing
+		the *next* function that is to be called.
+		======*/
+	</script>
+	</head>
+	</html>

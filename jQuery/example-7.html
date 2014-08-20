@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 7 - jQuery deferreds and promises - .then() vs .done()</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+		/*
+			then > then > then
+		*/
+		var promise = $.Deferred().resolve('abc');
+	    promise.then(function (x) {
+	        if (x === 'abc') {
+	        	console.log('abc');
+				return 123;
+	        } 	        
+	    }).then(function (x){
+	        if (x === 123) {
+	        	console.log('123');
+	        }
+	    }).then(function (x){
+	        if (x === undefined) {
+	        	console.log('I have got nothing');
+	        }	        
+	    });
+
+	    /*
+			'done' works on original promise where 'then' return a new promise
+	    */
+	    var promise = $.Deferred().resolve('abc');
+	    promise.done(function (x) {
+	        if (x === 'abc') {
+	        	console.log('abc');
+				return 123;
+	        } 
+	    }).done(function (x) {
+	        if (x === 'abc') {
+	        	console.log('abc not 123');
+	        }
+	    }).done(function (x) {
+	        if (x === 'abc') {
+	        	console.log('abc not undefined');
+	        }
+	    });
+
+	    var promise = $.Deferred().resolve('abc');
+	    promise.done(function (x) {
+	         if (x === 'abc') {
+	        	console.log('abc');
+				return 123;
+	        }
+	    }).then(function (x) {
+	         if (x === 'abc') {
+	        	console.log('abc');
+	        }
+	    }).then(function (x) {
+	        if (x === undefined) {
+	        	console.log('I have got nothing');
+	        	return 456;
+	        }	        
+	    }).done(function (x) {
+	        if (x === 456) {
+	        	console.log('456');
+	        }
+	    }).done(function (x) {
+	        if (x === 456) {
+	        	console.log('456');
+	        }
+	    });
+	</script>
+	</head>
+	</html>

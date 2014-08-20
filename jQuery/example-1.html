@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 1 - Resolve</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+		function myPromise() {
+			var deferred = $.Deferred();
+
+			setTimeout(function () {
+				deferred.resolve('I love promise');
+			}, 5000);
+
+			return deferred.promise();
+		}
+
+		myPromise().then(function (response) {
+			console.log(response);
+		}, function () {
+			console.log('something I do not like.');
+		});
+	</script>
+</head>
+<body></body>
+</html>

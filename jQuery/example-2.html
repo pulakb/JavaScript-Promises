@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 1 - Reject</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+		function myPromise() {
+			var deferred = $.Deferred();
+
+			setTimeout(function () {
+				deferred.reject('I am rejecting your love.');
+			}, 1000);
+
+			return deferred.promise();
+		}
+
+		myPromise().then(function (response) {
+			console.log(response);
+		}, function (reason) {
+			console.log(reason);
+		});
+	</script>
+</head>
+<body></body>
+</html>

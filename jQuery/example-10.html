@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 10 - Resolve</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+	/*
+		Both Q and jQuery provide a deferred object that hosts the authorities of observing state and changing state. In Q, the deferred has a promise property that is the sole interface for observing state. The resolve and reject functions change state. Only the promise has the promise API in Q. In jQuery, the $.Deferred object is both the promise and the deferred, but it provides a promise() function that can either return the promise part of the API, or put the promise methods on another object.
+	*/
+		function myPromise() {
+			var deferred = $.Deferred();
+ 
+			setTimeout(function () {
+				deferred.resolve('I love promise');
+			}, 5000);
+ 
+			return deferred;
+		}
+ 
+		myPromise().then(function (response) {
+			console.log(response);
+		}, function () {
+			console.log('something I do not like.');
+		});
+	</script>
+</head>
+<body></body>
+</html>

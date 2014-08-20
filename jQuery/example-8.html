@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 8 - Chain of Jquery Promises</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+	/*
+		Use case:
+		Get Country details (async) - data/country.json
+ 		Get Sports details of those country (async) - data/sports.json
+		render list
+	*/
+		function getCountryList() {		    
+		    var deferred = $.Deferred(); 
+
+		    $.ajax( {
+		        url: '/data/country.json',
+		        dataType: 'json',
+		        success: function(data) {
+		            console.log('Country data is retrieved');
+		            deferred.resolve(data);
+		        }		        
+		    });
+		    
+		    return deferred.promise();
+		}
+		 
+		function getStatesList(countryList) {
+		    var deferred = $.Deferred();
+		    var country_states = [];
+
+		    $.ajax( {
+		        url: '/data/sports.json',
+				dataType: 'json',
+		        success: function(stateList) { 	           
+		           $.each( countryList, function( key, value ) {
+					  country_states[value] = stateList[value];
+					});
+
+		    		deferred.resolve(country_states);	            
+		        }		        
+		    });
+
+		    return deferred.promise();
+		}
+		 
+		function renderData(country_states) {
+			for (var index in country_states) {
+				var sports = country_states[index];
+				$.each(sports, function( key, value ) {
+				  console.log(key);
+				  console.log("Sports are " + value);
+				});
+			}		   
+		}
+
+		getCountryList()
+	    .then(getStatesList)
+	    .then(renderData);
+</script>
+</head>
+<body></body>
+</html>

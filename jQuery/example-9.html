@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 9 - Initialize a database if not present</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+	/*
+		1. Check if the dabase is present or not
+		2. if present do nothing, execute your queries
+		3. Else create a new database and then fire your queries
+	*/
+
+	function checkExistenceOfMySQLDB() {
+			var deferred = $.Deferred();
+
+			/*setTimeout(function () {
+				deferred.resolve('Database is present');
+			}, 2000);*/
+
+			setTimeout(function () {
+				deferred.reject('Database is not present');
+			}, 2000);
+
+			return deferred.promise();
+	}
+
+	function createNewMySQLDB() {
+			var deferred = $.Deferred();
+
+			/*setTimeout(function () {
+				deferred.resolve('NEW Database is created');
+			}, 2000);*/
+
+			setTimeout(function () {
+				deferred.reject('NEW Database could not be created');
+			}, 2000);
+
+			return deferred.promise();
+	}
+
+	function initialiseMySQLDB() {
+		var deferred = $.Deferred();
+
+		checkExistenceOfMySQLDB().then(function (response) {
+			deferred.resolve(response + ' fire your queries' );
+		}, function (reason) {
+			createNewMySQLDB().then(function (res) {
+				deferred.resolve(res + ' fire your queries' );
+			}, function (rea) {
+				deferred.reject(rea);
+			});
+		});
+
+		return deferred.promise();
+	}
+
+	initialiseMySQLDB().then(function (response) {
+		console.log(response);
+	}, function (reason) {
+		console.log(reason);
+	});
+	</script>
+</head>
+<body></body>
+</html>
