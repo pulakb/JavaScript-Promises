@@ -27,26 +27,26 @@
 		 
 		function getStatesList(countryList) {
 		    var deferred = $.Deferred();
-		    var country_states = [];
+		    var country_sports = [];
 
 		    $.ajax( {
 		        url: '/data/sports.json',
 				dataType: 'json',
 		        success: function(stateList) { 	           
 		           $.each( countryList, function( key, value ) {
-					  country_states[value] = stateList[value];
+					  country_sports[value] = stateList[value];
 					});
 
-		    		deferred.resolve(country_states);	            
+		    		deferred.resolve(country_sports);	            
 		        }		        
 		    });
 
 		    return deferred.promise();
 		}
 		 
-		function renderData(country_states) {
-			for (var index in country_states) {
-				var sports = country_states[index];
+		function renderData(country_sports) {
+			for (var index in country_sports) {
+				var sports = country_sports[index];
 				$.each(sports, function( key, value ) {
 				  console.log(key);
 				  console.log("Sports are " + value);

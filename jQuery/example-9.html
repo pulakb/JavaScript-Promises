@@ -24,17 +24,15 @@
 			return deferred.promise();
 	}
 
-	function createNewMySQLDB() {
+	function createNewMySQLDB(reason) {
 			var deferred = $.Deferred();
 
-			/*setTimeout(function () {
-				deferred.resolve('NEW Database is created');
-			}, 2000);*/
+			console.log(reason);
 
 			setTimeout(function () {
-				deferred.reject('NEW Database could not be created');
+				deferred.resolve('NEW Database is created');
 			}, 2000);
-
+			
 			return deferred.promise();
 	}
 
@@ -44,7 +42,7 @@
 		checkExistenceOfMySQLDB().then(function (response) {
 			deferred.resolve(response + ' fire your queries' );
 		}, function (reason) {
-			createNewMySQLDB().then(function (res) {
+			createNewMySQLDB(reason).then(function (res) {
 				deferred.resolve(res + ' fire your queries' );
 			}, function (rea) {
 				deferred.reject(rea);

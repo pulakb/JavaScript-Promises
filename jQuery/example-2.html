@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Example 1 - Reject</title>
+	<title>Example 2 - Reject</title>
 	<script src="jquery-1.11.1.js"></script>
 	<script>
 		function myPromise() {
 			var deferred = $.Deferred();
 
 			setTimeout(function () {
+				//Reject a Deferred object and call any failCallbacks with the given args.
 				deferred.reject('I am rejecting your love.');
 			}, 1000);
 

@@ -21,9 +21,13 @@
 		$(function() {
 		    $("a").click(function() {
 		        var deferreds = createDeferredStuff();
-
+		        /*
+				If a single Deferred is passed to jQuery.when, its Promise object (a subset of the Deferred methods) is returned by the method. Additional methods of the Promise object can be called to attach callbacks, such as deferred.then. When the Deferred is resolved or rejected, usually by the code that created the Deferred originally, the appropriate callbacks will be called. 
+		        */
 		        $.when.apply(null, deferreds).done(function() {
 		            $("div").append("<p>All done!</p>");
+		        }).fail(function (err) {
+		        	console.log(err);
 		        });
 		    });
 		});

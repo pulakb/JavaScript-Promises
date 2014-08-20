@@ -5,15 +5,21 @@
 	<script src="jquery-1.11.1.js"></script>
 	<script>
 		function myPromise() {
+			/*
+				A constructor function that returns a chainable utility object with methods to register multiple callbacks into callback queues, invoke callback queues, and relay the success or failure state of any synchronous or asynchronous function.
+			*/
 			var deferred = $.Deferred();
 
 			setTimeout(function () {
+				//Resolve a Deferred object
 				deferred.resolve('I love promise');
 			}, 5000);
 
+			//Return a Deferred’s Promise object.
 			return deferred.promise();
 		}
-
+		
+        //Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
 		myPromise().then(function (response) {
 			console.log(response);
 		}, function () {
