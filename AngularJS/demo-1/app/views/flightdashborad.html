@@ -1,0 +1,18 @@
+<div>
+	Give your Email-ID: <input type="text" name="emailId" ng-model="emailId" ng-change="hideResult()">
+	<button name="button" ng-click="getDashboradDetails()">Find Details</button>
+</div>
+<div>
+	<h3>Details</h3>
+	<ul ng-if="showResult">
+		<li>Flight: {{flightName}}</li>
+		<li>Flight ID: {{flightID}}</li>
+		<li>Date: {{departureDate}}</li>
+		<li>Weather
+			<ul>
+				<li>Sky: {{sky}}</li>
+				<li>Temparature: {{temparature}}</li>
+			</ul>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,11 @@
+<div>
+	Give Article ID: <input type="text" name="articleId" ng-change="hideResult()" ng-model="articleId">
+	<button name="button" ng-click="findAuthor()">Find Author</button>
+</div>
+<div>
+	<h3>Author Details</h3>
+	<ul ng-if="showResult">
+		<li>Name: {{auName}}</li>
+		<li>City: {{auCity}}</li>
+	</ul>
+</div>
