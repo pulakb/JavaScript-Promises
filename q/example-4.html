@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 4 - catch</title>
+	<script src="q.js"></script>
+	<script>
+		function saveToDisk() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.reject('saveToDisk got rejected'), 3000);
+			    
+			    return deferred.promise;
+		}
+
+		function saveToCloud() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve('saveToCloud'), 2000);
+			    
+			    return deferred.promise;
+		}
+		
+		saveToDisk()
+			.then(saveToCloud/*, function (reason) {
+				console.log("failure handler "+ reason);
+			}*/)
+			.catch(function (reason) {
+				console.log(reason);
+			}).
+			finally(function () {
+				console.log('Do all the cleanup tasks here');
+			});
+
+	</script>
+	</head>
+	</html>

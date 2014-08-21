@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 9 - Q.delay(ms)</title>
+	<script src="q.js"></script>
+	<script>
+		function saveToDisk() {
+			var deferred = Q.defer();
+			    //setTimeout(deferred.resolve('saveToDisk'), 3000);
+
+			    Q.delay(3000).then(function () {
+			    	deferred.resolve('after delaying you are saying saveToDisk')
+			    });
+			    
+			    return deferred.promise;
+		}
+
+		saveToDisk().then(function (response) {			
+    		console.log(response);
+		}, function (reason) {
+    		console.log(reason);
+		});
+	</script>
+	</head>
+	</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 15 - No need for fcall</title>
+	<script src="q.js"></script>
+	<script>
+	/*	You don't need to use fcall when the function returns a promise 
+		(and you can't use it when there is no callback). 
+	*/
+
+	function func(){
+	    return Q.delay(100).then(function(){
+	        throw new Error("async error");
+	    });
+	}
+
+	func()
+	.then(console.log.bind(console, "success"))
+	.fail(console.log.bind(console));
+
+	</script>
+	</head>
+	</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 8 - promise.timeout</title>
+	<script src="q.js"></script>
+	<script>
+		function saveToDisk() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve('saveToDisk'), 120000);
+			    
+			    return deferred.promise;
+		}
+
+		var promise = saveToDisk();
+
+		/*
+			Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
+		*/
+
+		promise.timeout(1000).then(function (response) {
+			// will be called if the promise resolves normally
+    		console.log(response);
+		}, function (reason) {
+			// will be called if the promise is rejected, or the 10 second timeout occurs
+    		console.log(reason);
+		});
+	</script>
+	</head>
+	</html>

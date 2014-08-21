@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 13 - Use promise with a recursive function</title>
+	<script src="q.js"></script>
+	<script src="jquery-2.1.1.min.js"></script>
+	<script>
+		var loadCount = 0;
+		var newSectionArray = [];
+
+		function section(deferred) {
+		    if(!deferred){
+		        deferred = Q.defer();
+		    }
+		    var apiURL = "/data/" + "sports" + loadCount + ".json";
+
+		    $.ajax( {
+		        url: apiURL,
+		        dataType: 'json',
+		        success: function(result) {
+		            loadCount++;
+		            newSectionArray.push(result);
+
+			        if(loadCount < 3) {			            
+			            section(deferred); 
+			        } else {
+			            loadCount = 0;
+			            deferred.resolve(newSectionArray);
+			        }			        
+		        },
+		        error: function (jqXHR, textStatus, errorThrown) {
+					return deferred.reject();
+		        }
+		    });
+		    return deferred.promise;
+		};
+
+		
+
+		section().then(function (response) {			
+    		console.log(response);
+		}, function (reason) {
+    		console.log(reason);
+		});
+	</script> 
+	</head>
+	</html>

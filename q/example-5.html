@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 5 - Handling Error</title>
+	<script src="q.js"></script>
+	<script>
+		function saveToDisk() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve(2), 3000);
+			    
+			    return deferred.promise;
+		}
+
+		saveToDisk()
+			.then(function (response) {
+				if (response === 2) {
+					throw new Error("Throwing error....");
+				}
+			}, function (reason) {
+				console.log("failure handler "+ reason);
+			})
+			.catch(function (err) {
+				console.log(err);
+			});
+	</script>
+	</head>
+	</html>

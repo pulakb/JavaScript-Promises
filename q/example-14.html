@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 14 - Q.fcall</title>
+	<script src="q.js"></script>
+	<script>
+		/*
+		You can create a promise from a value using Q.fcall. Also you can use fcall to get a promise for an exception.
+		*/
+
+		function func(){		    
+		    throw new Error("async error");
+		    //return 100;
+		}
+ 
+        Q.fcall(func)
+        .then(function(){
+            console.log("success"); 
+        })
+        .fail(function(err){
+            console.log(err); 
+        })
+
+/*function func(){
+    return Q.delay(100).then(function(){
+        throw new Error("async error");
+    });
+}
+
+func()
+.then(console.log.bind(console, "success"))
+.fail(console.log.bind(console));*/
+
+	</script>
+	</head>
+	</html>

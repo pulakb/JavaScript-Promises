@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 1 - without Arguments</title>
+	<script src="jquery-2.1.1.min.js"></script>
+	<script src="q.js"></script>
+	<script>
+		function one() {		    
+		    var deferred = Q.defer(); 
+
+		    console.log("Starting one's ajax");
+
+		    $.ajax( {
+		        url: '/',
+		        success: function() {
+		            console.log('Finished with one. Ready to call next.');
+		            deferred.resolve();
+		        }		        
+		    });
+		    
+		    return deferred.promise;
+		}
+		 
+		function two() {
+		    var deferred = Q.defer();
+		    console.log("Starting two's ajax");
+		    $.ajax( {
+		        url: '/',
+		        success: function() {		          
+		            console.log('Finished with two. Ready to call next.');
+		            deferred.resolve();		            
+		        }		        
+		    });
+		    // The deferred object has a "promise" member,
+		    // which has a "then" function
+		    return deferred.promise;
+		}
+		 
+		function three() {
+		    var deferred = Q.defer();
+		    console.log("Starting three's ajax");
+		    $.ajax( {
+		        url: '/',
+		        success: function() {
+		            
+		            // Again, this is where you want to call the next function
+			    // in the list if there is one.
+		            console.log('Finished with three. Ready to call next if there is one.');
+		            deferred.resolve();
+		            
+		        }
+		        
+		    });
+		    // The deferred object has a "promise" member, which has a "then" function
+		    return deferred.promise;
+		}
+		 
+		// Test it out. Call the first. Pass the functions 
+		// (without calling them, so no parentheses) into the then calls.
+		 
+		one()
+		    .then(two)
+		    .then(three);
+	</script>
+	</head>
+	</html>

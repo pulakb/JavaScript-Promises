@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 12 - Resolve with Promise</title>
+	<script src="q.js"></script>
+	<script>
+	/*
+		resolve is a function that accepts a promise or a value. If the value is a promise, resolves the deferred promise with the resolved promise, such that any observations of the resolved promise are forwarded to the deferred promise.
+	*/
+
+		function getFromLocation() {
+			var deferred = Q.defer();
+
+		    Q.delay(5000).then(function () {
+		    	deferred.resolve('returning from Location and going to saveToDisk');
+		    });
+		    
+		    return deferred.promise;
+		}
+
+		function saveToDisk() {
+			var deferred = Q.defer();
+			var location = getFromLocation();
+
+			    Q.delay(1000).then(function () {
+			    	deferred.resolve(location);
+			    });
+			    
+			    return deferred.promise;
+		}
+
+		saveToDisk().then(function (response) {			
+    		console.log(response);
+		}, function (reason) {
+    		console.log(reason);
+		});
+	</script>
+	</head>
+	</html>

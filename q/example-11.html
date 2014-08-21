@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 11 - Two parallel and independent jobs</title>
+	<script src="q.js"></script>
+	<script>
+		function qPromiseA() {
+			var deferred = Q.defer();
+			    //setTimeout(deferred.resolve('saveToDisk'), 3000);
+
+			    Q.delay(2000).then(function () {
+			    	deferred.resolve(100);
+			    });
+			    
+				/*
+			    Q.delay(2000).then(function () {
+			    	deferred.reject("Ehhhhhhhhh!!!!!!!");
+			    });*/
+			    
+			    return deferred.promise;
+		}
+
+		function makeB(arg) {
+			return (arg+100);
+		}
+
+		function makeC(arg) {
+			return (arg+200);
+		}
+
+		var qPromiseA = qPromiseA();
+		var promiseB = qPromiseA.then(makeB);
+		var promiseC = qPromiseA.then(makeC);
+
+		promiseB.then(function (status) {
+				console.log('Resolving promiseB afetr qPromiseA got resolved ' + status);
+		});
+		promiseC.then(function (status) { 
+				console.log('Resolving promiseC afetr qPromiseA got resolved ' + status);
+		});
+
+		function handleFailureA(reason) {
+			console.log("qPromiseA - error thrown - " + reason);
+		}
+
+		qPromiseA.catch(handleFailureA).done();
+
+	</script>
+	</head>
+	</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 3 - Q.ll : All Success</title>
+	<script src="q.js"></script>
+	<script>
+		function saveToDisk() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve('saveToDisk'), 3000);
+			    
+			    return deferred.promise;
+		}
+
+		function saveToCloud() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve('saveToCloud'), 2000);
+			    
+			    return deferred.promise;
+		}
+
+		function getFromDisk() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve('getFromDisk'), 3000);
+			    
+			    return deferred.promise;
+		}
+
+		function getFromCloud() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.resolve('getFromCloud'), 2000);
+			    //setTimeout(deferred.reject('rejected in getFromCloud'), 2000);
+			    return deferred.promise;
+		}
+
+		//You can turn an array of promises into a promise for the whole, fulfilled array using all.
+		Q.all([saveToDisk(), saveToCloud()]).done(function (response) {
+		    console.log(response[0] + " --------- " + response[1]);
+		});
+
+
+		/*
+		If you have a promise for an array, you can use "spread" as a replacement for "then". The spread function “spreads” the values over the arguments of the fulfillment handler. The rejection handler will get called at the first sign of failure. That is, whichever of the received promises fails first gets handled by the rejection handler.
+
+		The all function returns a promise for an array of values. When this promise is fulfilled, the array contains the fulfillment values of the original promises, in the same order as those promises. If one of the given promises is rejected, the returned promise is immediately rejected, not waiting for the rest of the batch. If you want to wait for all of the promises to either be fulfilled or rejected, you can use allSettled. (Check example 7.html)
+		*/
+		Q.all([getFromDisk(), getFromCloud()]).spread(function (diskVal, cloudVal) {
+		    console.log(diskVal);
+		    console.log(cloudVal);
+		}).catch(function (reason) {
+				console.log(reason);
+			}).done();
+	</script>
+	</head>
+	</html>
