@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 5-2 - Throwing Error in Catch</title>
+	<script src="q.js"></script>
+	<script>
+	/*
+		Support in jQuery of the following point:
+		Rejected, rejection handler throws an exception: a catch clause got the error and re-threw it (or a new one)
+	*/
+		function saveToDisk() {
+			var deferred = Q.defer();
+			    setTimeout(deferred.reject("I am rejecting YOU"), 3000);
+			    
+			    return deferred.promise;
+		}
+
+		saveToDisk()
+			.then(function (response) {
+				console.log("success handler "+ response);
+			}, function (reason) {
+				console.log("failure handler "+ reason);
+				throw new Error("Throwing error....");
+
+			})
+			.catch(function (err) {
+				console.log("------------------");
+				throw new Error(err);
+			});
+	</script>
+	</head>
+	</html>
