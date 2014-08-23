@@ -26,7 +26,10 @@ var server = http.createServer(function (req, res) {
 
 function getTitles() {	
 	var deferred = Q.defer();
-	// makeNodeResolver() - to pass a deferred to a Node callback
+	/**
+	 * Creates a Node-style callback that will resolve or reject the deferred
+	 * promise.
+	 */
 	fs.readFile('./titles.json', 'utf-8', deferred.makeNodeResolver());
 	return deferred.promise;
 }

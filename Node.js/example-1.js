@@ -10,7 +10,8 @@ var Q = require('q');
   }
 });*/
 
-// use Q.denodeify() to translate the callback style function to a promise style function
+// use Q.denodeify() to translate the callback style function to a 
+//promise style function
 var stat = Q.denodeify(fs.stat);
 
 // promise style function

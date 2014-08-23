@@ -26,11 +26,11 @@ var server = http.createServer(function (req, res) {
 
 function getTitles() {
 	var deferred = Q.defer();
+	// use Q.denodeify() to translate the callback style function to a promise style function
 	var readFile = Q.denodeify(fs.readFile);
 
 	readFile('./titles.json', 'utf-8').then(function(data) {
 		//success handler
-	  console.log('Titles are received');
 	  deferred.resolve(JSON.parse(data.toString()));
 	}, function(err) {
 	  // error handler
@@ -43,11 +43,11 @@ function getTitles() {
 
 function getTemplates() {
 	var deferred = Q.defer();
+	// use Q.denodeify() to translate the callback style function to a promise style function
 	var readFile = Q.denodeify(fs.readFile);
 
 	readFile('./template.html', 'utf-8').then(function(data) {
 		//success handler
-	  console.log('Template is received');
 	  deferred.resolve(data.toString());
 	}, function(err) {
 	  // error handler

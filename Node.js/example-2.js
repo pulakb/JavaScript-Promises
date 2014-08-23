@@ -15,7 +15,9 @@ function sleep(ms) {
 
 // return a fulfillment handler which return another promise
 function SleepFunc(ms) {
-  return function() {
+  //Fulfilment Handler
+  return function(arg) {
+    //Returning a promise
     return sleep(ms);
   };
 }
