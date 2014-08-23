@@ -3,6 +3,8 @@
 
 	Serial flow control implemented in a simple solution
 
+	https://www.npmjs.org/package/htmlparser
+
 	http://stackoverflow.com/questions/21812473/using-promises-with-node-js-functions-on-example
 */
 
