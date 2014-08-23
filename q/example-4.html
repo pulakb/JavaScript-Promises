@@ -19,10 +19,11 @@
 		}
 		
 		saveToDisk()
-			.then(saveToCloud/*, function (reason) {
+			.then(saveToCloud, function (reason) {
 				console.log("failure handler "+ reason);
-			}*/)
+			})
 			.catch(function (reason) {
+				console.log("----");
 				console.log(reason);
 			}).
 			finally(function () {

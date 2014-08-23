@@ -12,7 +12,7 @@
 			var deferred = Q.defer();
 
 		    Q.delay(5000).then(function () {
-		    	deferred.resolve('returning from Location and going to saveToDisk');
+		    	deferred.reject('XXX returning from Location and going to saveToDisk');
 		    });
 		    
 		    return deferred.promise;
@@ -32,7 +32,7 @@
 		saveToDisk().then(function (response) {			
     		console.log(response);
 		}, function (reason) {
-    		console.log(reason);
+    		console.log("CC"+ reason);
 		});
 	</script>
 	</head>

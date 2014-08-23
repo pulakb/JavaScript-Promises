@@ -4,6 +4,10 @@
 	<title>Example 5 - Handling Error</title>
 	<script src="q.js"></script>
 	<script>
+	/*
+		Support in jQuery of the following point:
+		Fulfilled, fulfillment handler throws an exception: getting data, and throwing an exception in response to it
+	*/
 		function saveToDisk() {
 			var deferred = Q.defer();
 			    setTimeout(deferred.resolve(2), 3000);
@@ -20,6 +24,7 @@
 				console.log("failure handler "+ reason);
 			})
 			.catch(function (err) {
+				console.log("------------------");
 				console.log(err);
 			});
 	</script>
