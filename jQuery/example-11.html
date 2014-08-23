@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example 11 - Handling Error</title>
+	<script src="jquery-1.11.1.js"></script>
+	<script>
+	/*
+		No support in jQuery of the following point:
+
+		* Fulfilled, fulfillment handler throws an exception: getting data, and throwing an exception in response to it
+
+		* Rejected, rejection handler returns a value: a catch clause got the error and handled it
+	*/
+		function saveToDisk() {
+			var deferred = $.Deferred();
+			    setTimeout(deferred.resolve(2), 3000);
+			    
+			    return deferred.promise();
+		}
+
+		saveToDisk()
+			.then(function (response) {
+				if (response === 2) {
+					throw new Error("Throwing error....");
+				}
+			}, function (reason) {
+				console.log("failure handler "+ reason);
+			})
+			.catch(function (err) {
+				console.log("-----------");
+				console.log(err);
+			});
+	</script>
+	</head>
+	</html>

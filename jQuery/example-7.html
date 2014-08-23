@@ -11,6 +11,7 @@
 	    promise.then(function (x) {
 	        if (x === 'abc') {
 	        	console.log('abc');
+	        	//Fulfillment value of the returned promise
 				return 123;
 	        } 	        
 	    }).then(function (x){
@@ -52,9 +53,6 @@
 	         if (x === 'abc') {
 	        	console.log('abc');
 	        }
-	        /* retuns a promise even if nothing is explicitly returned. In this case, no argument
-	           is passed.
-	         */
 	    }).then(function (x) {
 	        if (x === undefined) {
 	        	console.log('I have got nothing');
